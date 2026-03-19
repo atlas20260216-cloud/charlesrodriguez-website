@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { slug: 'welcome' } }
+  ];
+}
+
+const { slug } = Astro.params;
+
+const articles = {
+  welcome: {
+    title: "Welcome to my site",
+    date: "March 19, 2026",
+    content: `
+      <p>This is the beginning of something new. I'm excited to share my thoughts, experiences, and what I'm learning along the way.</p>
+      
+      <p>This site will serve as a home for:</p>
+      
+      <ul>
+        <li>Articles about my professional journey</li>
+        <li>Personal reflections and learnings</li>
+        <li>Updates on what I'm currently exploring</li>
+        <li>Links to my podcast episodes (coming soon)</li>
+      </ul>
+      
+      <p>Thanks for stopping by. I hope you find something here that resonates with you.</p>
+    `
+  }
+};
+
+const article = articles[slug];
+---
+
+<Layout title={`${article.title} | Charles Christopher Rodriguez`}>
+  <article class="max-w-2xl">
+    <a href="/articles" class="text-sm text-gray-500 hover:text-gray-900 mb-4 inline-block">
+      ← Back to articles
+    </a>
+    
+    <h1 class="text-4xl font-bold mb-2">{article.title}</h1>
+    <time class="text-gray-500 text-sm">{article.date}</time>
+    
+    <div class="prose prose-lg mt-8" set:html={article.content} />
+  </article>
+</Layout>
